@@ -7,15 +7,15 @@
 
 import Foundation
 
-struct Post {
-    let author: String
-    let description: String
-    let image: String
-    let likes: Int
-    let views: Int
+public struct Post {
+    public let author: String
+    public let description: String
+    public let image: String
+    public let likes: Int
+    public let views: Int
 }
 
-let arrPosts: [Post] = [
+public let arrPosts: [Post] = [
     Post(
         author: "Дмитрий Ржевской",
         description: "Почему олень всегда выигрывает в карты? \nПотому что он отлично держит руку!",
