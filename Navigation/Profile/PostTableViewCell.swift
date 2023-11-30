@@ -7,10 +7,12 @@
 
 import UIKit
 import StorageService
+import iOSIntPackage
 
 final class PostTableViewCell: UITableViewCell {
     
     static let idCell = "CustomCell"
+    let filterImg = ImageProcessor()
     
     private lazy var postAuthor: UILabel = {
        let label = UILabel()
@@ -66,8 +68,13 @@ final class PostTableViewCell: UITableViewCell {
     }
     
     func configure(with post: Post) {
+        
+        filterImg.processImage(
+            sourceImage: UIImage(named: post.image) ?? UIImage(),
+            filter: .sepia(intensity: 10)
+        ) { image in postImage.image = image }
+        
         postAuthor.text = post.author
-        postImage.image = UIImage(named: post.image)
         postDescription.text = post.description
         postLikes.text = "Likes: \(post.likes)"
         postViews.text = "Views: \(post.views)"
