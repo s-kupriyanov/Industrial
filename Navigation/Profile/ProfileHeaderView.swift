@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class ProfileHeaderView: UIView {
     
@@ -18,7 +19,6 @@ final class ProfileHeaderView: UIView {
         avatarImage.layer.cornerRadius = 60
         avatarImage.layer.borderWidth = 3
         avatarImage.layer.borderColor = UIColor.white.cgColor
-        avatarImage.translatesAutoresizingMaskIntoConstraints = false
         return avatarImage
     }()
 
@@ -28,7 +28,6 @@ final class ProfileHeaderView: UIView {
         label.textColor = .black
         label.text = "Hipster Cat"
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -38,7 +37,6 @@ final class ProfileHeaderView: UIView {
         label.textColor = .gray
         label.text = "Waiting for something..."
         label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -56,7 +54,6 @@ final class ProfileHeaderView: UIView {
         inputText.layer.borderColor = UIColor.black.cgColor
         inputText.placeholder = "Введите статус"
         inputText.clearButtonMode = .whileEditing
-        inputText.translatesAutoresizingMaskIntoConstraints = false
         return inputText
     }()
 
@@ -70,7 +67,6 @@ final class ProfileHeaderView: UIView {
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOpacity = 0.7
-        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -117,82 +113,37 @@ final class ProfileHeaderView: UIView {
         addSubview(inputText)
         addSubview(buttonShowStatus)
         
-        NSLayoutConstraint.activate(
-            [
-                avatarImage.topAnchor.constraint(
-                    equalTo: self.topAnchor,
-                    constant: 16
-                ),
-                avatarImage.leftAnchor.constraint(
-                    equalTo: self.leftAnchor,
-                    constant: 16
-                ),
-                avatarImage.heightAnchor.constraint(
-                    equalToConstant: 120.0
-                ),
-                avatarImage.widthAnchor.constraint(
-                    equalToConstant: 120.0
-                ),
-                
-                fullNameLabel.topAnchor.constraint(
-                    equalTo: self.topAnchor,
-                    constant: 27
-                ),
-                fullNameLabel.leftAnchor.constraint(
-                    equalTo: avatarImage.rightAnchor,
-                    constant: 16
-                ),
-                fullNameLabel.rightAnchor.constraint(
-                    equalTo: self.rightAnchor,
-                    constant: -16
-                ),
-                
-                statusLabel.topAnchor.constraint(
-                    equalTo: fullNameLabel.bottomAnchor,
-                    constant: 10
-                ),
-                statusLabel.leftAnchor.constraint(
-                    equalTo: avatarImage.rightAnchor,
-                    constant: 16
-                ),
-                statusLabel.rightAnchor.constraint(
-                    equalTo: self.rightAnchor,
-                    constant: -16
-                ),
-                
-                inputText.topAnchor.constraint(
-                    equalTo: statusLabel.bottomAnchor,
-                    constant: 10
-                ),
-                inputText.leftAnchor.constraint(
-                    equalTo: avatarImage.rightAnchor,
-                    constant: 16
-                ),
-                inputText.rightAnchor.constraint(
-                    equalTo: self.rightAnchor,
-                    constant: -16
-                ),
-                inputText.heightAnchor.constraint(
-                    equalToConstant: 40.0
-                ),
-                
-                buttonShowStatus.topAnchor.constraint(
-                    equalTo: avatarImage.bottomAnchor,
-                    constant: 16
-                ),
-                buttonShowStatus.leftAnchor.constraint(
-                    equalTo: self.leftAnchor,
-                    constant: 16
-                ),
-                buttonShowStatus.rightAnchor.constraint(
-                    equalTo: self.rightAnchor,
-                    constant: -16
-                ),
-                buttonShowStatus.heightAnchor.constraint(
-                    equalToConstant: 50.0
-                ),
-            ]
-        )
+        avatarImage.snp.makeConstraints { make in
+            make.top.left.equalTo(self).offset(16)
+            make.width.height.equalTo(120)
+        }
+        
+        fullNameLabel.snp.makeConstraints { make in
+            make.top.equalTo(self).offset(27)
+            make.right.equalTo(self).offset(-16)
+            make.left.equalTo(avatarImage.snp.right).offset(16)
+        }
+        
+        statusLabel.snp.makeConstraints { make in
+            make.top.equalTo(fullNameLabel.snp.bottom).offset(10)
+            make.right.equalTo(self).offset(-16)
+            make.left.equalTo(avatarImage.snp.right).offset(16)
+        }
+
+        inputText.snp.makeConstraints { make in
+            make.top.equalTo(statusLabel.snp.bottom).offset(10)
+            make.right.equalTo(self).offset(-16)
+            make.left.equalTo(avatarImage.snp.right).offset(16)
+            make.height.equalTo(40)
+        }
+        
+        buttonShowStatus.snp.makeConstraints { make in
+            make.top.equalTo(avatarImage.snp.bottom).offset(16)
+            make.right.equalTo(self).offset(-16)
+            make.left.equalTo(self).offset(16)
+            make.height.equalTo(50)
+        }
+        
     }
     
 }
