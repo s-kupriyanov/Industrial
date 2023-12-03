@@ -9,6 +9,8 @@ import UIKit
 import StorageService
 
 class ProfileViewController: UIViewController {
+    
+    private let userView: User
 
     private let profileHeaderView: ProfileHeaderView = {
         let view = ProfileHeaderView()
@@ -26,6 +28,20 @@ class ProfileViewController: UIViewController {
         
         return tableView
     }()
+    
+    init(userView: User) {
+        self.userView = userView
+        super.init(nibName: nil, bundle: nil)
+        
+        profileHeaderView.avatarImage.image = userView.avatar
+        profileHeaderView.fullNameLabel.text = userView.fullName
+        profileHeaderView.statusLabel.text = userView.status
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
