@@ -11,9 +11,8 @@ final class ProfileHeaderView: UIView {
     
     static let idHeader = "CustomHeader"
     
-    private lazy var avatarImage: UIImageView = {
+    lazy var avatarImage: UIImageView = {
         let avatarImage = UIImageView()
-        avatarImage.image = UIImage(named: "avatarImage")
         avatarImage.layer.masksToBounds = true
         avatarImage.layer.cornerRadius = 60
         avatarImage.layer.borderWidth = 3
@@ -22,21 +21,19 @@ final class ProfileHeaderView: UIView {
         return avatarImage
     }()
 
-     private lazy var fullNameLabel: UILabel = {
+    lazy var fullNameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
-        label.text = "Hipster Cat"
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
-    private lazy var statusLabel: UILabel = {
+    lazy var statusLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
-        label.text = "Waiting for something..."
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
