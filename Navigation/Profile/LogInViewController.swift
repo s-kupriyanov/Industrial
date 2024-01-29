@@ -30,6 +30,8 @@ class CustomButton: UIButton {
 
 class LogInViewController: UIViewController {
     
+    var userService: UserService?
+    
     private lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.showsVerticalScrollIndicator = true
@@ -322,13 +324,32 @@ class LogInViewController: UIViewController {
     }
     
     @objc func openProfileViewController(_ sender: UIButton) {
-        let profileViewController = ProfileViewController()
-        self.navigationController?.pushViewController(
-            profileViewController,
-            animated: false
-        )
+        
+        let enteredLogin = inputLogin.text
+        let userTest = User(login: "stanislav", fullName: "Куприянов Станислав", avatar: UIImage(named: "avatarS") ?? UIImage(), status: "и снова, здравствуйте!")
+
+        #if DEBUG
+        userService = TestUserService()
+        #else
+        userService = CurrentUserService(currentUser: userTest)
+        #endif
+        
+        if let user = userService?.authorization(forLogin: enteredLogin!) {
+            let profileViewController = ProfileViewController(userView: user)
+            self.navigationController?.pushViewController(
+                profileViewController,
+                animated: false
+            )
+        } else {
+            let alertLoginError = UIAlertController(
+                title: "Аккаунт не найден.",
+                message: "Пожалуйста, убедитесь, что логин введен верно.",
+                preferredStyle: .alert
+            )
+            alertLoginError.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: .default))
+            self.present(alertLoginError, animated: true, completion: nil)
+        }
     }
-    
 }
 
 extension LogInViewController: UITextFieldDelegate {
